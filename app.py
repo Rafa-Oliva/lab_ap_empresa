@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, escape
 from search4web import search4letters, log_request
+import sqlite_db
 
 app = Flask(__name__)
 
@@ -26,6 +27,9 @@ def do_search() -> 'html':
     log_request(request, result)
     return str(search4letters(phrase, letters))
 
+@app.route("/login")
+def login_page():
+    return render_template('login.html')
 
 @app.route('/')
 @app.route("/entry")

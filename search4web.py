@@ -1,6 +1,5 @@
 import datetime
 
-
 def search4vowels(word: str) -> set:
     """ Return any vowels found in word"""
     vowels = set('aeiou')
