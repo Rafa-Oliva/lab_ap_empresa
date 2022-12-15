@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2>Login</h2>
+<h2>Register as a new user</h2>
 
-    <form method="post" action="/search">
+    <form method="post" action="/register">
     <table>
         <tr><td>Username:</td><td><input name="username" type="TEXT" width="60"></td></tr>
         <tr><td>Password:</td><td><input name="password" type="TEXT" ></td></tr>
     </table>
-    <p><input value="LOGIN" type="SUBMIT"> <input value="REGISTER" type="SUBMIT"></p>
-    <p>If you don't want to identify yourself...</p>
-    <p><input value="INCOGNITO MODE" type="SUBMIT"></p>
+    <p><input value="REGISTER" name="register" type="SUBMIT"></p>
     </form>
 {% endblock %}
