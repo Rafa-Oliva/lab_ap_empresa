@@ -12,14 +12,14 @@ def start_user_database():
       password TEXT NOT NULL )''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS log (
+      time DATATIME NOT NULL,
       username VARCHAR(50) NOT NULL,
       action VARCHAR(100) NOT NULL,
-      time DATATIME NOT NULL,
       FOREIGN KEY(username) REFERENCES users(username))''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS visit_counter (
-      username VARCHAR(50) PRIMARY KEY UNIQUE NOT NULL,
       number_visits INTEGER DEFAULT 1,
+      username VARCHAR(50) PRIMARY KEY UNIQUE NOT NULL,
       FOREIGN KEY(username) REFERENCES users(username))''')
 
     cursor = connection.execute("SELECT username FROM users WHERE username=?", ['Anonymous'])
@@ -86,23 +86,19 @@ def login_anonymous():
     connection.commit()
     connection.close()
 
-
-def delete_user_database():  # Only delete IF they already exist => avoid errors
+def get_log():
     connection = sqlite3.connect(db)
     cursor = connection.cursor()
-
-    cursor = connection.execute("SELECT name FROM userpool.db WHERE type='table' AND username=users")
-    if cursor.fetchone():
-        cursor.execute("DROP TABLE users")
-    cursor = connection.execute("SELECT name FROM userpool.db WHERE type='table' AND username=log")
-    if cursor.fetchone():
-        cursor.execute("DROP TABLE log")
-    cursor = connection.execute("SELECT name FROM userpool.db WHERE type='table' AND name=visit_counter")
-    if cursor.fetchone():
-        cursor.execute("DROP TABLE visit_counter")
-
-    connection.commit()
+    cursor = connection.execute("SELECT * FROM log").fetchall()
     connection.close()
+    return cursor
+
+def get_visit_counter():
+    connection = sqlite3.connect(db)
+    cursor = connection.cursor()
+    cursor = connection.execute("SELECT * FROM visit_counter").fetchall()
+    connection.close()
+    return cursor
 
 # cursor = connection.execute("SELECT name, password FROM users")
 # for row in cursor:

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2>Welcome to search letters on the web!</h2>
+<h2>Welcome to search letters on the web {{ the_username }}!</h2>
 
-    <form method="post" action="/search">
+    <form method="post" action="/{{ the_username }}/result">
     <table>
         <p>
             Use this form to submit a search request:
